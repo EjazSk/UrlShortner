@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+
+
+      <div class="card text-center">
+  <div class="card-header">
+    Shorten Your URLs
+  </div>
+  <div class="card-body">
+
+    <form method="POST" action="#" ml-auto>
+  
+  {% csrf_token %}
+   
+    {{ form.as_p }}
+  <br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+   
+  </div>
+ 
+</div>
+
+
+
+
+    {% endblock %}

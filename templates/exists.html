@@ -1,0 +1,15 @@
+
+
+
+{% extends 'base.html' %}
+
+    {% block content %}
+
+
+
+<div class="alert alert-danger" role="alert">
+  Shortened URL Already Exsits... Start sharing it!!
+  <a href="{{object.get_short_url}}">{{object.get_short_url}} </a>
+</div>
+
+    {% endblock %}
