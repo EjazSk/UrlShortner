@@ -32,38 +32,60 @@ def home(request):
 def ShortnerView(request,shortcode=None):
 	qs = get_object_or_404(Shortner,shortcode=shortcode)
 	qs.count+=1
+	print(qs.url_field)
 	qs.save()
 	#print('the ip is' +str(get_client_ip(request)))
-	rs = get_object_or_404(Shortner,url_field=url)
+	analytic_obj = Analytic()
 	
 
 	ua_string = request.META['HTTP_USER_AGENT']
 	user_agent = parse(ua_string)
 
+
+
+	# artist = Artist.objects.get(id=1)  
+	# newMp3 = Mp3(title="sth", artist=artist)
+
+	analytic_obj.url=Shortner.objects.get(id=qs.id)
+	#analytic_obj.url= qs.url_field
+
 	# Accessing user agent's browser attributes
-	rs.browser = user_agent.browser.family  # returns 'Mobile Safari'
-	rs.browser_version = user_agent.browser.version_string   # returns '5.1'
+	analytic_obj.browser = user_agent.browser.family  # returns 'Mobile Safari'
+	analytic_obj.browser_version = user_agent.browser.version_string   # returns '5.1'
 
 
 
 	# Accessing user agent's operating system properties
-	rs.os = user_agent.os.family  # returns 'iOS'
-	rs.os_version = user_agent.os.version_string  # returns '5.1'
+	analytic_obj.os = user_agent.os.family  # returns 'iOS'
+	analytic_obj.os_version = user_agent.os.version_string  # returns '5.1'
 
 	# Accessing user agent's device properties
-	rs.device = user_agent.device.family  # returns 'iPhone'
-	rs.device_brand = str(user_agent.device.brand) # returns 'Apple'
-	rs.device_model=str(user_agent.device.model) # returns 'iPhone'
+	analytic_obj.device = user_agent.device.family  # returns 'iPhone'
+	analytic_obj.device_brand = str(user_agent.device.brand) # returns 'Apple'
+	analytic_obj.device_model=str(user_agent.device.model) # returns 'iPhone'
 
 	
-	rs.is_mobile= user_agent.is_mobile # returns True
-	rs.is_tablet= user_agent.is_tablet # returns False
-	rs.is_touch_capable = user_agent.is_touch_capable # returns False
-	rs.is_pc = user_agent.is_pc # returns False
-	rs.is_bot= user_agent.is_bot # returns False
-	rs.save()
+	analytic_obj.is_mobile= user_agent.is_mobile # returns True
+	analytic_obj.is_tablet= user_agent.is_tablet # returns False
+	analytic_obj.is_touch_capable = user_agent.is_touch_capable # returns False
+	analytic_obj.is_pc = user_agent.is_pc # returns False
+	analytic_obj.is_bot= user_agent.is_bot # returns False
+	analytic_obj.save()
 	
 
 
 	return HttpResponseRedirect(qs.url_field)
 
+
+
+def analytic_view(request,id=None):
+	obj=get_object_or_404(Shortner,id=id)
+	# >>> Entry.objects.filter(blog__name='Beatles Blog')
+
+	analytic = Analytic.objects.filter(url=obj)
+
+	print(obj)
+	print(analytic)
+	context={'object':obj,'analytic':analytic}
+
+	return render(request,'view.html',context)

@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from st.views import home,ShortnerView
+from st.views import home,ShortnerView,analytic_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home, name='home'),
+    url(r'^view/(?P<id>\d+)$', analytic_view, name='analytic_view'),
+    #url(r'^view/(?P<id>\d+)$', 'analytic_view',),
+
     url(r'^(?P<shortcode>[\w-]+)/$', ShortnerView, name='ShortnerView'),
 
 

@@ -51,7 +51,7 @@ class Shortner(models.Model):
 
 
 class Analytic(models.Model):
-	url               = models.ForeignKey(Shortner,related_name='url_analytic',on_delete=models.CASCADE,) 
+	url               = models.ForeignKey(Shortner,related_name='analytic',on_delete=models.CASCADE,) 
 	browser	  		  = models.CharField(max_length=300,blank=True,null=True)
 	browser_version	  = models.CharField(max_length=300,blank=True,null=True)
 	os                = models.CharField(max_length=300,blank=True,null=True)
@@ -64,6 +64,10 @@ class Analytic(models.Model):
 	is_touch_capable  = models.NullBooleanField()
 	is_pc             = models.NullBooleanField()
 	is_bot            = models.NullBooleanField()
+
+
+	def __str__(self):
+		return(str('Analytics of %s')%(self.url))
 
 
 
