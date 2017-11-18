@@ -7,8 +7,12 @@ from .utils import get_client_ip
 from user_agents import parse
 # Create your views here.
 
+
+from django.http import JsonResponse
+
+
 def home(request):
-	form = ShortnerForm(request.POST)
+	form = ShortnerForm(request.POST or None)
 	context={'form':form}
 	template='home.html'
 	if form.is_valid():
@@ -78,14 +82,32 @@ def ShortnerView(request,shortcode=None):
 
 
 
-def analytic_view(request,id=None):
+def analytic_view_graph(request,id=None):
 	obj=get_object_or_404(Shortner,id=id)
 	# >>> Entry.objects.filter(blog__name='Beatles Blog')
 
 	analytic = Analytic.objects.filter(url=obj)
+	
 
 	print(obj)
 	print(analytic)
 	context={'object':obj,'analytic':analytic}
 
-	return render(request,'view.html',context)
+	return render(request,'graphview.html',context)
+
+def analytic_view_table(request,id=None):
+	obj=get_object_or_404(Shortner,id=id)
+	analytic = Analytic.objects.filter(url=obj)
+	context={'object':obj,'analytic':analytic}
+	return render(request,'tableview.html',context)
+
+
+def get_data(request, *args, **kwargs):
+	name=['ajaz','ganesh','alex','max']
+	rating=[10,10,8,7]
+	data = {
+		"labels": name,
+		"default":rating,
+	}
+	return JsonResponse(data) # http response
+

@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from st.views import home,ShortnerView,analytic_view
+from st.views import home,ShortnerView,analytic_view_graph, get_data,analytic_view_table
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home, name='home'),
-    url(r'^view/(?P<id>\d+)$', analytic_view, name='analytic_view'),
+    url(r'^graphview/(?P<id>\d+)$', analytic_view_graph, name='analytic_view_graph'),
+    url(r'^tableview/(?P<id>\d+)$', analytic_view_table, name='analytic_view_table'),
+    url(r'^api/data/$', get_data, name='api-data'),
+  
     #url(r'^view/(?P<id>\d+)$', 'analytic_view',),
 
     url(r'^(?P<shortcode>[\w-]+)/$', ShortnerView, name='ShortnerView'),

@@ -1,0 +1,92 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="card text-center">
+  <div class="card-header">
+    <h2>URL Analytics</h2> 
+  </div>
+  <div class="card-body">
+    <h4 class="card-title"  >{{object.get_short_url}}</h4>
+    <code>{{object.get_short_url}}</code>
+    <p class="card-text"><code>Total Hits : {{object.count}}</code></p>
+    <code><small>Original URL : {{object.url_field}}</small></code><br>
+<!--     <a href="{{object.get_short_url}}" class="btn btn-primary">Go somewhere</a>
+ -->  </div>
+  <div class="card-footer text-muted">
+    Created {{object.created | timesince}} Ago
+  </div>
+</div>
+{% if analytic  %}
+<table class="table">
+	
+
+  <thead class="thead-dark">
+
+    
+      <th scope="col">Browser</th>
+      <th scope="col">Browser Version</th>
+      <th scope="col">OS</th>
+      <th scope="col">OS Version</th>
+      <th scope="col">Device</th>
+      <th scope="col">Device Brand</th>
+      <th scope="col">Device Model</th>
+      <th scope="col">Is Mobile</th>
+      <th scope="col">Is Tablet</th>
+      <th scope="col">Is Touch Capable</th>
+      <th scope="col">Is PC</th>
+      <th scope="col">Is Bot</th>
+
+    </tr>  
+  </thead>
+  
+  <tbody>
+  	<tr>{% for obj in analytic %}
+    <tr>
+      <th scope="row">{{obj.browser}}</th>
+      <th scope="row">{{obj.browser_version}}</th>
+      <th scope="row">{{obj.os}}</th>
+      <th scope="row">{{obj.os_version}}</th>
+      <th scope="row">{{obj.device}}</th>
+      <th scope="row">{{obj.device_brand}}</th>
+      <th scope="row">{{obj.device_model}}</th>
+      <th scope="row">{{obj.is_mobile}}</th>
+      <th scope="row">{{obj.is_tablet}}</th>
+      <th scope="row">{{obj.is_touch_capable}}</th>
+      <th scope="row">{{obj.is_pc}}</th>
+      <th scope="row">{{obj.is_bot}}</th>
+     
+<!--       <td>Otto</td>
+      <td>@mdo</td> -->
+    </tr>
+    
+  {%  endfor %}
+
+  </tbody>
+
+</table>{% else %}
+<div class="alert alert-info" role="alert" align="text-center">
+  <p class="text-center">No Hits Yet, Start Sharing with friends!</p>
+</div>
+</div>	
+
+
+
+
+{% endif %}
+
+
+<!-- <p>
+ 
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Button with data-target
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  </div>
+</div> -->
+
+{% endblock %}

@@ -1,25 +1,29 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
     {% block content %}
 
 
-      <div class="card text-center">
+ <div class="card text-center">
   <div class="card-header">
-    Shorten Your URLs
+   <h2>Shorten Your URLs</h2> 
   </div>
   <div class="card-body">
+
+    <div class="row">
+      <div class="col-md-6 offset-3"> 
 
     <form method="POST" action="#" ml-auto>
   
   {% csrf_token %}
    
-    {{ form.as_p }}
+    {{ form| crispy }}
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
+</div>
    
-  </div>
+  </div></div> 
  
 </div>
 

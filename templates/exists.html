@@ -5,11 +5,24 @@
 
     {% block content %}
 
-
-
-<div class="alert alert-danger" role="alert">
-  Shortened URL Already Exsits... Start sharing it!!
-  <a href="{{object.get_short_url}}">{{object.get_short_url}} </a>
+<div class="container-fluid">
+	<div class="card text-center">
+  <div class="card-header">
+  	<div class="alert alert-danger" role="alert">
+    <h2>Already Exsits</h2> 
+  </div>
+</div>	
+  <div class="card-body">
+   
+    <h4><code>{{object.get_short_url}}</code></h4>
+    <h5><code><small>Original URL : {{object.url_field}}</small></code><br></h5>
+    <a href="tableview/{{object.id}}" class="btn btn-primary">View Statics</a>
+  </div>
+  <div class="card-footer text-muted">
+    Created {{object.created | timesince}} Ago
+  </div>
 </div>
+
+
 
     {% endblock %}
