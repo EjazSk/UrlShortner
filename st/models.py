@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 import string
 import random
 # Create your models here.
@@ -15,6 +17,7 @@ def shortcodeGenerator(length=6, chars=string.ascii_lowercase + string.digits+ s
 
 
 class Shortner(models.Model):
+	user              = models.ForeignKey(User,null=True)
 	url_field         = models.CharField(max_length=300)
 	shortcode         = models.CharField(max_length=6,blank=True , null = True)
 	created	          = models.DateTimeField(auto_now_add=True)
@@ -32,11 +35,13 @@ class Shortner(models.Model):
 	# is_touch_capable  = models.NullBooleanField()
 	# is_pc             = models.NullBooleanField()
 	# is_bot            = models.NullBooleanField()
-
+	class Meta:
+		unique_together = (('user', 'url_field'),)
 
 	def save(self, *args, **kwargs):
 		if self.shortcode is None or self.shortcode == "":
 			self.shortcode = shortcodeGenerator()
+		#print(self.request.user)	
 		# if not "http" in self.url:
 		# 	self.url = "http://" + self.url
 		super(Shortner, self).save(*args, **kwargs)
@@ -47,7 +52,7 @@ class Shortner(models.Model):
 		return(str(self.url_field))
 
 	def get_short_url(self):
-		return '127.0.0.1:8000/%s' %(self.shortcode)
+		return 'http://127.0.0.1:8000/%s' %(self.shortcode)
 
 
 class Analytic(models.Model):

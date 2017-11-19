@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+
+
+
+
+
+
+
+{% if qs  %}
+<table class="table">
+	
+
+  <thead class="thead-dark">
+
+    
+      <th scope="col">Sr No.</th>
+      <th scope="col">Short Url</th>
+      <th scope="col">Created at</th>
+      <th scope="col">Long Url</th>
+      <th scope="col">View Details</th>
+  
+
+    </tr>  
+  </thead>
+  
+  <tbody>
+  	<tr>{% for obj in qs %}
+    <tr>
+      <th scope="row"> {{ forloop.counter }} </th>
+      <th scope="row">{{obj.get_short_url}}</th>
+      <th scope="row">{{obj.created}}</th>
+      <th scope="row">{{obj.url_field|truncatechars:40}}</th>
+      <th scope="row"> <a href="/tableview/{{obj.id}}" class="btn btn-primary">View Details</a></th>
+   
+<!--       <td>Otto</td>
+      <td>@mdo</td> -->
+    </tr>
+    
+  {%  endfor %}
+
+  </tbody>
+
+</table>{% else %}
+<h2>not urls yet</h2>
+{% endif %}
+{% endblock %}

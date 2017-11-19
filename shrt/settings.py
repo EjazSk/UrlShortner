@@ -25,21 +25,25 @@ SECRET_KEY = 'elio$6x#qbq5w=^(ln(8#koavbcd-b13ay2ltm3o1yyiin!5gr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'registration',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'st',
     #Third Party INSTALLED_APPS
     'crispy_forms',
+    
 ]
 
 MIDDLEWARE = [
@@ -115,9 +119,25 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL='/static/'
+#Django Registration Redux SETTINGS
+ACCOUNT_ACTIVATION_DAYS=7
+SITE_ID=1
+LOGIN_REDIRECT_URL='/'
+REGISTRATION_AUTO_LOGIN=True
+
+#EMAIL SETTINGS
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'contact.findus@gmail.com'
+EMAIL_HOST_PASSWORD = '9975965006'
+EMAIL_PORT = 587
+ADMINS = [('FindUsTech', EMAIL_HOST_USER)]
+MANAGERS = ADMINS

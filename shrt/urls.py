@@ -13,9 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url,include
 from django.contrib import admin
-from st.views import home,ShortnerView,analytic_view_graph, get_data,analytic_view_table
+from st.views import my_shortened_urls,home,ShortnerView,analytic_view_graph, get_data,analytic_view_table
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -23,7 +23,9 @@ urlpatterns = [
     url(r'^graphview/(?P<id>\d+)$', analytic_view_graph, name='analytic_view_graph'),
     url(r'^tableview/(?P<id>\d+)$', analytic_view_table, name='analytic_view_table'),
     url(r'^api/data/$', get_data, name='api-data'),
-  
+    url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^myurls/$', my_shortened_urls, name='my_shortened_urls'),
+
     #url(r'^view/(?P<id>\d+)$', 'analytic_view',),
 
     url(r'^(?P<shortcode>[\w-]+)/$', ShortnerView, name='ShortnerView'),
