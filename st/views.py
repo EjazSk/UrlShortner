@@ -34,16 +34,18 @@ def home(request):
 			if created:
 				qs=Shortner.objects.filter(url_field=obj.url_field).first()
 				#qs = get_object_or_404(Shortner,url_field=obj.url_field,user=None)
-				qs.user=request.user
-				qs.save()
+				if qs.user == None:
+
+					qs.user=request.user
+					qs.save()
 				template='success.html'
 			else:
 				template='exists.html'
 		
 		except MultipleObjectsReturned:
-			obj= Shortner.objects.filter(url_field=new_url).first()
-			context={'ojects':obj}
-			print(context)
+			obj= Shortner.objects.filter(url_field=new_url).filter(user=request.user).first()
+			context={'object':obj}
+			print(obj)
 			print('here is context')
 			#print(Shortner.objects.filter(url_field=obj.url_field).first())
 			template='exists.html'
