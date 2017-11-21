@@ -9,43 +9,70 @@
     <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
+
+   <style>
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    /* The image used */
+    background-image: url("https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=889&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 889w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=1189&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 1189w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=1489&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 1489w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=1778&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 1778w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=1789&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 1789w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=2089&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 2089w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=2378&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 2378w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=2389&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 2389w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=2689&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 2689w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=2978&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 2978w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=2989&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 2989w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=3289&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 3289w, https://images.unsplash.com/photo-1495312040802-a929cd14a6ab?auto=format&fit=crop&w=3502&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D 3502w");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>
+
   </head>
   <body>
-  <nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="/ "><h1>Url Shortner!</h1></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item ">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      </li>
-       </li>
-        <a class="nav-link" href="/accounts/register">Register <span class="sr-only">(current)</span></a>
-      </li>
-        <a class="nav-link" href="/accounts/login">LogIn <span class="sr-only">(current)</span></a>
-      </li>
-        <a class="nav-link" href="/accounts/logout">LogOut <span class="sr-only">(current)</span></a>
-      </li>
-      </li>
-        <a class="nav-link" href="/myurls">My Urls <span class="sr-only">(current)</span></a>
-      </li>
-    
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li> -->
-    </ul>
-  <!--   <span class="navbar-text">
-      Navbar text with an inline element
-    </span> -->
-  </div>
-</nav>
+          <nav class="navbar navbar-dark bg-dark">
+          <a class="navbar-brand" href="/ "><h1>Url Shortner!</h1></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+              {% if request.user.is_authenticated %}
+              <li class="nav-item ">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+
+              </li>
+                <a class="nav-link" href="/myurls">My Urls <span class="sr-only">(current)</span></a>
+              </li>
+                <li>
+                <a class="nav-link" href="/accounts/logout">LogOut <span class="sr-only">(current)</span></a>
+              </li>
+              {% else %}
+               </li>
+                <a class="nav-link" href="/accounts/register">Register <span class="sr-only">(current)</span></a>
+              </li>
+                <a class="nav-link" href="/accounts/login">LogIn <span class="sr-only">(current)</span></a>
+             
+            {% endif %}
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li> -->
+            </ul>
+        <!--     <span class="navbar-text">
+              Navbar text with an inline element
+            </span> -->
+          </div>
+        </nav>
 
     <!-- <div class="container"> -->
+      <div class="bg">
     {% block content %}
 
     {% endblock %}
+    </div>
    <!--      </div> -->
 
     <!-- Optional JavaScript -->
