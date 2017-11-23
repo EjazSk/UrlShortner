@@ -81,7 +81,7 @@
 
 <div class="col-md-3 mx-auto mx-auto">
 
-<div class="pagination">
+<!-- <div class="pagination">
     <span class="step-links">
         {% if qs.has_previous %}
             <a href="?page={{ qs.previous_page_number }}">previous</a>
@@ -95,6 +95,20 @@
             <a href="?page={{ qs.next_page_number }}">next</a>
         {% endif %}
     </span>
-</div>
+</div> -->
+
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if qs.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{ qs.previous_page_number }}">Previous</a></li>
+    {% endif %}
+    <li class="page-item"><a class="page-link" href="#">Page {{ qs.number }} of {{ qs.paginator.num_pages }}.</a></li>
+    {% if qs.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ qs.next_page_number }}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
 </div>
 {% endblock %}
