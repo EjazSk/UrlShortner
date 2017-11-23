@@ -7,7 +7,7 @@ Welcome to Url Shortner..
 
 Thank you for registering to our site.
 
-Click the link below to activate your account.
+Just One More Step!! Click the link below to activate your account.
 
 http://{{ site.domain }}{% url 'registration_activate' activation_key %}
 

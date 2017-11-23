@@ -1,1 +1,2 @@
-Complete Registration for {{ site.name }}
+Activate your {{ site.name }} account!!!
+
