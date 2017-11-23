@@ -6,13 +6,30 @@
 
 
 
+<br>
 
+<div class="container mx-auto">
+   <form method="GET" action="">
+      <div class="row">
+        <div class="col">
+          <input type="text"  name="q" class="form-control" placeholder="Search Your Urls" value='{{ request.GET.q }}'>
+        </div>
+        <div class="col">
+          <input type="submit"  class="btn btn-outline-primary" >
+        </div>
+      </div>
+    </form>
+</div>
+
+<br>
 
 
 
 
 
 {% if qs  %}
+
+
 <table class="table">
 	
 
@@ -46,7 +63,38 @@
 
   </tbody>
 
-</table>{% else %}
-<h2>not urls yet</h2>
+</table>
+
+
+{% else %}
+<div class="container mx-auto">
+
+<div class="alert alert-info mx-auto" role="alert">
+  <h2> No Urls Found</h2>
+</div>
+</div>
+
+
 {% endif %}
+
+
+
+<div class="col-md-3 mx-auto mx-auto">
+
+<div class="pagination">
+    <span class="step-links">
+        {% if qs.has_previous %}
+            <a href="?page={{ qs.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ qs.number }} of {{ qs.paginator.num_pages }}.
+        </span>
+
+        {% if qs.has_next %}
+            <a href="?page={{ qs.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+</div>
 {% endblock %}

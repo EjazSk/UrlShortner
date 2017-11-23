@@ -8,6 +8,9 @@ from user_agents import parse
 from django.contrib.auth.decorators import login_required
 from registration.models import RegistrationProfile  
 from django.core.exceptions import MultipleObjectsReturned
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+
 # Create your views here.
 
 
@@ -126,15 +129,62 @@ def get_data(request, *args, **kwargs):
 	}
 	return JsonResponse(data) # http response
 
+
+
+
+
+
+
+
 @login_required(login_url='/accounts/login/')
 def my_shortened_urls(request):
 
 
-	qs=Shortner.objects.filter(user=request.user)
+	qs=Shortner.objects.filter(user=request.user).order_by('-id')
+
+
+
+	query=request.GET.get('q')
+	if query:
+		#print(query)
+
+		#qs=qs.filter(body__icontains=query)
+		#print(qs)
+
+		qs = qs.filter(
+				Q(url_field__icontains=query)|
+				Q(shortcode__icontains=query)).distinct()
+
+
+
+
+
+
+	paginator = Paginator(qs, 10) # Show 25 contacts per page
+
+	page = request.GET.get('page')
+	try:
+		qs = paginator.page(page)
+	except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+		qs = paginator.page(1)
+	except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+		qs = paginator.page(paginator.num_pages)
 
 
 	context={'qs':qs}	
 	return render(request,'myurls.html',context)	
+
+
+
+
+
+
+
+
+
+
 
 
 
